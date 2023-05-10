@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './ProfileLayout.module.scss';
-import NavBar from '../NavBar/NavBar';
+import NavBar from '../UI/NavBar/NavBar';
 import { Outlet } from 'react-router-dom';
 
 const ProfileLayout = () => {

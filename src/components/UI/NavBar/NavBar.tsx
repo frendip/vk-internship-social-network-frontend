@@ -1,11 +1,11 @@
 import React from 'react';
 import classes from './NavBar.module.scss';
 import { Link } from 'react-router-dom';
-import { CommonButton } from '../UI/Button/Button';
-import friendsIcon from '../../assets/friendsIcon.png';
-import mesIcon from '../../assets/mesIcon.png';
-import newsIcon from '../../assets/newsIcon.png';
-import pageIcon from '../../assets/pageIcon.png';
+import { CommonButton } from '../Button/Button';
+import friendsIcon from '../../../assets/friendsIcon.png';
+import mesIcon from '../../../assets/mesIcon.png';
+import newsIcon from '../../../assets/newsIcon.png';
+import pageIcon from '../../../assets/pageIcon.png';
 
 const NavBar = () => {
   return (

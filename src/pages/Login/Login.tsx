@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin } from '../../types/types';
-import classes from '../../styles/authCard.module.scss';
+import classes from '../../styles/formCard.module.scss';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { fetchLogin, selectIsAuth } from '../../store/slices/authSlice';

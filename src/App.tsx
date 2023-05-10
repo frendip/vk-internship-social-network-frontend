@@ -6,14 +6,17 @@ import Registration from './pages/Registration/Registration';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
 import ProfileLayout from './components/ProfileLayout/ProfileLayout';
+import { useAppSelector } from './hooks/useAppSelector';
+import { selectIsAuth } from './store/slices/authSlice';
 
 function App() {
+  const isAuth = useAppSelector(selectIsAuth);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<ProfileLayout />}>
-            <Route index element={<Navigate to="/me" />} />
+            <Route index element={isAuth ? <Navigate to="/me" /> : <Navigate to={'/login'} />} />
             <Route path="/:id" element={<Profile />} />
           </Route>
           <Route path="/login" element={<Login />} />

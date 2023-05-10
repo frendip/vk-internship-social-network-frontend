@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classes from '../../styles/authCard.module.scss';
+import classes from '../../styles/formCard.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IRegistration } from '../../types/types';
 import { CommonButton } from '../../components/UI/Button/Button';

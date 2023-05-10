@@ -1,6 +1,5 @@
 import { IUser, tokenType } from '../../types/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 import { UserService } from '../../API/UserService';
 
 export const fetchMe = createAsyncThunk<IUser, tokenType>(
@@ -70,8 +69,6 @@ const userSlice = createSlice({
       });
   },
 });
-
-export const selectIsAuth = (state: RootState) => Boolean(state.auth.token);
 
 export const { signOut } = userSlice.actions;
 export default userSlice.reducer;
