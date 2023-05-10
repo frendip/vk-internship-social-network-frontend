@@ -13,10 +13,16 @@
   justify-content: space-between;
   align-items: center;
 }
-.header__col {
+.header__logoButton {
   display: flex;
   gap: 0 10px;
   align-items: center;
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 7px;
+}
+.header__logoButton:hover {
+  background: #3b3b3b;
 }
 .header__logo {
   position: relative;

@@ -1,0 +1,48 @@
+.card {
+  padding: 20px 0;
+  width: 100%;
+  background: #222222;
+  border: 1px solid #292929;
+  border-radius: 10px;
+}
+.card__title {
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.form {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form__label {
+  width: 50%;
+}
+.form__labelTitle {
+  padding-top: 10px;
+  padding-left: 7px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.form__input {
+  margin-top: 10px;
+  width: 100%;
+  padding: 7px;
+  border-radius: 10px;
+  border: 1px solid #292929;
+  font-size: 20px;
+}
+.form__error {
+  padding-top: 10px;
+  color: rgba(0, 119, 255, 0.8);
+  font-size: 16px;
+  text-align: center;
+}
+.form__submit {
+  padding-top: 20px;
+}
+
+/*# sourceMappingURL=authCard.module.css.map */

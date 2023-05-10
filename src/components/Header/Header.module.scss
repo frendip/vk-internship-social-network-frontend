@@ -16,10 +16,18 @@
     align-items: center;
   }
 
-  &__col {
+  &__logoButton {
     display: flex;
     gap: 0 10px;
     align-items: center;
+
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 7px;
+
+    &:hover {
+      background: #3b3b3bff;
+    }
   }
 
   &__logo {
