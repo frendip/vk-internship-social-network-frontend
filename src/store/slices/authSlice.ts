@@ -1,6 +1,7 @@
-import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILogin, IRegistration, tokenType } from '../../types/types';
 import PostService from '../../API/PostService';
+import { RootState } from '../store';
 
 export const fetchLogin = createAsyncThunk<tokenType, ILogin>(
   'auth/fetchLogin',
@@ -13,7 +14,7 @@ export const fetchLogin = createAsyncThunk<tokenType, ILogin>(
         throw new Error(data.message);
       }
 
-      return data.token;
+      return data;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -31,7 +32,7 @@ export const fetchRegistration = createAsyncThunk<tokenType, IRegistration>(
         throw new Error(data.message);
       }
 
-      return data.token;
+      return data;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -44,13 +45,13 @@ enum Status {
   ERROR = 'error',
 }
 
-interface productsState {
+interface authState {
   token: null | tokenType;
   status: Status;
   errorMessage: null | string;
 }
 
-const initialState: productsState = {
+const initialState: authState = {
   token: null,
   status: Status.LOADING,
   errorMessage: null,
@@ -59,10 +60,16 @@ const initialState: productsState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    signOut(state) {
+      state.token = null;
+      state.status = Status.LOADING;
+      state.errorMessage = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLogin.fulfilled, (state, action) => {
+      .addCase(fetchLogin.fulfilled, (state, action: PayloadAction<string>) => {
         state.token = action.payload;
       })
       .addCase(fetchRegistration.fulfilled, (state, action) => {
@@ -96,4 +103,7 @@ const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
 };
 
+export const selectIsAuth = (state: RootState) => Boolean(state.auth.token);
+
+export const { signOut } = authSlice.actions;
 export default authSlice.reducer;

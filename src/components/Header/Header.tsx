@@ -6,10 +6,18 @@ import signUpIcon from '../../assets/signUpIcon.png';
 import signInIcon from '../../assets/signInIcon.png';
 import { HeaderButton } from '../UI/Button/Button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { signOut } from '../../store/slices/authSlice';
 
 const Header = () => {
   const navigate = useNavigate();
   const { pathname: path } = useLocation();
+  const dispatch = useAppDispatch();
+
+  const onClickSignOut = () => {
+    dispatch(signOut());
+    window.localStorage.removeItem('token');
+  };
 
   return (
     <>
@@ -35,7 +43,7 @@ const Header = () => {
                 </HeaderButton>
               </Link>
             ) : (
-              <Link to={'/login'}>
+              <Link onClick={onClickSignOut} to={'/login'}>
                 <HeaderButton size={'large'} image={signOutIcon}>
                   Выйти
                 </HeaderButton>

@@ -8,4 +8,10 @@ export interface IRegistration extends ILogin {
   lastname: string;
 }
 
+export interface IPromiseAuth {
+  payload: {
+    token?: tokenType;
+  };
+}
+
 export type tokenType = string;

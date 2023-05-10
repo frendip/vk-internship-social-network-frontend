@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ILogin } from '../../types/types';
+import { ILogin, IPromiseAuth } from '../../types/types';
 import classes from '../../styles/authCard.module.scss';
 import { HeaderButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { fetchLogin } from '../../store/slices/authSlice';
+import { fetchLogin, selectIsAuth } from '../../store/slices/authSlice';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const { errorMessage, token } = useAppSelector((state) => state.auth);
-
-  const navigate = useNavigate();
+  const { errorMessage } = useAppSelector((state) => state.auth);
+  const isAuth = useAppSelector(selectIsAuth);
 
   const {
     register,
@@ -23,18 +22,20 @@ const Login = () => {
     mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<ILogin> = (data) => {
+  const onSubmit: SubmitHandler<ILogin> = async (data) => {
     const { email, password } = data;
-    dispatch(fetchLogin({ email, password }));
-  };
-
-  useEffect(() => {
-    if (token && !errorMessage) {
-      navigate('/');
+    const val = (await dispatch(fetchLogin({ email, password }))) as IPromiseAuth;
+    if (val.payload?.token) {
+      const token = val.payload.token as string;
+      window.localStorage.setItem('token', token);
     } else {
       reset();
     }
-  }, [token, errorMessage]);
+  };
+
+  if (isAuth) {
+    return <Navigate to={'/'} />;
+  }
 
   return (
     <div className={classes.card}>

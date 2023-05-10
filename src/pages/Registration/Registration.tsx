@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classes from '../../styles/authCard.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IRegistration } from '../../types/types';
+import { IPromiseAuth, IRegistration } from '../../types/types';
 import { HeaderButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { useNavigate } from 'react-router-dom';
-import { fetchRegistration } from '../../store/slices/authSlice';
+import { Navigate } from 'react-router-dom';
+import { fetchRegistration, selectIsAuth } from '../../store/slices/authSlice';
 
 const Registration = () => {
   const dispatch = useAppDispatch();
-  const { errorMessage, token } = useAppSelector((state) => state.auth);
-
-  const navigate = useNavigate();
+  const { errorMessage } = useAppSelector((state) => state.auth);
+  const isAuth = useAppSelector(selectIsAuth);
 
   const {
     register,
@@ -25,16 +24,20 @@ const Registration = () => {
 
   const onSubmit: SubmitHandler<IRegistration> = async (data) => {
     const { email, password, firstname, lastname } = data;
-    dispatch(fetchRegistration({ email, password, firstname, lastname }));
-  };
-
-  useEffect(() => {
-    if (token && !errorMessage) {
-      navigate('/');
+    const val = (await dispatch(
+      fetchRegistration({ email, password, firstname, lastname }),
+    )) as IPromiseAuth;
+    if (val.payload?.token) {
+      const token = val.payload.token as string;
+      window.localStorage.setItem('token', token);
     } else {
       reset();
     }
-  }, [token, errorMessage]);
+  };
+
+  if (isAuth) {
+    return <Navigate to={'/'} />;
+  }
 
   return (
     <div className={classes.card}>
