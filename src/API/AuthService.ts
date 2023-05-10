@@ -1,4 +1,4 @@
-export default class PostService {
+export class AuthService {
   static async getLogin(email: string, password: string) {
     const url = 'http://localhost:3001/login';
     return await fetch(url, {

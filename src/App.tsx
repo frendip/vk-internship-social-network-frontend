@@ -14,7 +14,6 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<ProfileLayout />}>
             <Route index element={<Navigate to="/me" />} />
-            <Route path="/me" element={<Profile />} />
             <Route path="/:id" element={<Profile />} />
           </Route>
           <Route path="/login" element={<Login />} />

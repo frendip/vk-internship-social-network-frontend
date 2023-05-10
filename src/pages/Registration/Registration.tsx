@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from '../../styles/authCard.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IPromiseAuth, IRegistration } from '../../types/types';
+import { IRegistration } from '../../types/types';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -10,8 +10,9 @@ import { fetchRegistration, selectIsAuth } from '../../store/slices/authSlice';
 
 const Registration = () => {
   const dispatch = useAppDispatch();
-  const { errorMessage } = useAppSelector((state) => state.auth);
   const isAuth = useAppSelector(selectIsAuth);
+
+  const [messageError, setMessageError] = useState<string>('');
 
   const {
     register,
@@ -24,13 +25,12 @@ const Registration = () => {
 
   const onSubmit: SubmitHandler<IRegistration> = async (data) => {
     const { email, password, firstname, lastname } = data;
-    const val = (await dispatch(
-      fetchRegistration({ email, password, firstname, lastname }),
-    )) as IPromiseAuth;
-    if (val.payload?.token) {
-      const token = val.payload.token as string;
-      window.localStorage.setItem('token', token);
+    const val = await dispatch(fetchRegistration({ email, password, firstname, lastname }));
+    if (val.type.endsWith('fulfilled')) {
+      const token = val.payload;
+      window.localStorage.setItem('token', token as string);
     } else {
+      setMessageError(val.payload as string);
       reset();
     }
   };
@@ -43,7 +43,7 @@ const Registration = () => {
     <div className={classes.card}>
       <h2 className={classes.card__title}>Регистрация</h2>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        {errorMessage && <div className={classes.form__error}>{errorMessage}</div>}
+        {messageError && <div className={classes.form__error}>{messageError}</div>}
         <label className={classes.form__label}>
           <div className={classes.form__labelTitle}>Почта</div>
           <input
