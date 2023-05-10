@@ -1,0 +1,71 @@
+.baseBtn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  transition-duration: 0.2s;
+}
+
+.headerBtn {
+  color: white;
+
+  &__small {
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+
+  &__medium {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  &__large {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 15px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+
+    gap: 0 5px;
+  }
+
+  &__img {
+    position: relative;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+  }
+
+  &__small &__img {
+    width: 12px;
+    height: 12px;
+  }
+
+  &__medium &__img {
+    width: 16px;
+    height: 16px;
+  }
+
+  &__large &__img {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background: #3b3b3bff;
+  }
+}
