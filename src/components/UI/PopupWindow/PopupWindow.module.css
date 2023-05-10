@@ -1,0 +1,32 @@
+.searchPopup {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  padding-top: 200px;
+  animation-name: popup;
+  animation-duration: 0.3s;
+}
+.searchPopup__content {
+  flex-basis: 50%;
+  background-color: #292929;
+  border-radius: 15px;
+  position: relative;
+}
+
+@keyframes popup {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+/*# sourceMappingURL=PopupWindow.module.css.map */
