@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import './styles/styles.module.scss';
 import Registration from './pages/Registration/Registration';
@@ -12,8 +12,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/:id" element={<ProfileLayout />}>
-            <Route index element={<Profile />} />
+          <Route path="/" element={<ProfileLayout />}>
+            <Route index element={<Navigate to="/me" />} />
+            <Route path="/me" element={<Profile />} />
+            <Route path="/:id" element={<Profile />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />

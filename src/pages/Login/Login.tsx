@@ -2,7 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin, IPromiseAuth } from '../../types/types';
 import classes from '../../styles/authCard.module.scss';
-import { HeaderButton } from '../../components/UI/Button/Button';
+import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { fetchLogin, selectIsAuth } from '../../store/slices/authSlice';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -73,7 +73,7 @@ const Login = () => {
           {errors?.password && <div className={classes.form__error}>{errors.password.message}</div>}
         </label>
         <div className={classes.form__submit}>
-          <HeaderButton size={'large'}>Войти!</HeaderButton>
+          <CommonButton size={'large'}>Войти!</CommonButton>
         </div>
       </form>
     </div>

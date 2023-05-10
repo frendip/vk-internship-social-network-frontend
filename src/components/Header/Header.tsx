@@ -4,7 +4,7 @@ import vkLogo from '../../assets/vkLogo.png';
 import signOutIcon from '../../assets/signOutIcon.png';
 import signUpIcon from '../../assets/signUpIcon.png';
 import signInIcon from '../../assets/signInIcon.png';
-import { HeaderButton } from '../UI/Button/Button';
+import { CommonButton } from '../UI/Button/Button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { signOut } from '../../store/slices/authSlice';
@@ -32,21 +32,21 @@ const Header = () => {
             </div>
             {path === '/login' ? (
               <Link to={'/registration'}>
-                <HeaderButton size={'large'} image={signUpIcon}>
+                <CommonButton size={'large'} image={signUpIcon}>
                   Зарегистрироваться
-                </HeaderButton>
+                </CommonButton>
               </Link>
             ) : path === '/registration' ? (
               <Link to={'/login'}>
-                <HeaderButton size={'large'} image={signInIcon}>
+                <CommonButton size={'large'} image={signInIcon}>
                   Авторизоваться
-                </HeaderButton>
+                </CommonButton>
               </Link>
             ) : (
               <Link onClick={onClickSignOut} to={'/login'}>
-                <HeaderButton size={'large'} image={signOutIcon}>
+                <CommonButton size={'large'} image={signOutIcon}>
                   Выйти
-                </HeaderButton>
+                </CommonButton>
               </Link>
             )}
           </div>

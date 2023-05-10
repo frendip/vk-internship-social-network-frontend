@@ -2,7 +2,7 @@ import React from 'react';
 import classes from '../../styles/authCard.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IPromiseAuth, IRegistration } from '../../types/types';
-import { HeaderButton } from '../../components/UI/Button/Button';
+import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { Navigate } from 'react-router-dom';
@@ -105,7 +105,7 @@ const Registration = () => {
           {errors?.password && <div className={classes.form__error}>{errors.password.message}</div>}
         </label>
         <div className={classes.form__submit}>
-          <HeaderButton size={'large'}>Зарегистрироваться!</HeaderButton>
+          <CommonButton size={'large'}>Зарегистрироваться!</CommonButton>
         </div>
       </form>
     </div>

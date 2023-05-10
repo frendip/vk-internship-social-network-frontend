@@ -14,6 +14,8 @@ export const BaseButton: FC<BaseButtonProps> = ({ children, className, ...props 
 
 interface HeaderButtonProps extends BaseButtonProps {
   size?: 'small' | 'medium' | 'large';
+  stretched?: boolean;
+  textPositionLeft?: boolean;
   image?: string;
 }
 
@@ -21,16 +23,26 @@ const headerBtnSize = {
   small: classes.headerBtn__small,
   medium: classes.headerBtn__medium,
   large: classes.headerBtn__large,
+  stretched: classes.headerBtn__stretched,
 };
 
-export const HeaderButton: FC<HeaderButtonProps> = ({
+export const CommonButton: FC<HeaderButtonProps> = ({
   children,
   size = 'medium',
+  stretched = false,
+  textPositionLeft = false,
   image = '',
   ...props
 }) => {
   return (
-    <BaseButton className={clsx(classes.headerBtn, headerBtnSize[size])} {...props}>
+    <BaseButton
+      className={clsx(
+        classes.headerBtn,
+        headerBtnSize[size],
+        stretched && classes.headerBtn__stretched,
+        textPositionLeft && classes.headerBtn__textPositionLeft,
+      )}
+      {...props}>
       {!image ? (
         children
       ) : (
