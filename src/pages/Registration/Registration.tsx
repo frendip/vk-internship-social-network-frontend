@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from '../../styles/authCard.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IRegistration } from '../../types/types';
 import { HeaderButton } from '../../components/UI/Button/Button';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useNavigate } from 'react-router-dom';
+import { fetchRegistration } from '../../store/slices/authSlice';
 
 const Registration = () => {
+  const dispatch = useAppDispatch();
+  const { errorMessage, token } = useAppSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<IRegistration>({
     mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<IRegistration> = (data) => {
-    alert(JSON.stringify(data));
+  const onSubmit: SubmitHandler<IRegistration> = async (data) => {
+    const { email, password, firstname, lastname } = data;
+    dispatch(fetchRegistration({ email, password, firstname, lastname }));
   };
+
+  useEffect(() => {
+    if (token && !errorMessage) {
+      navigate('/');
+    } else {
+      reset();
+    }
+  }, [token, errorMessage]);
 
   return (
     <div className={classes.card}>
       <h2 className={classes.card__title}>Регистрация</h2>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        {errorMessage && <div className={classes.form__error}>{errorMessage}</div>}
         <label className={classes.form__label}>
           <div className={classes.form__labelTitle}>Почта</div>
           <input

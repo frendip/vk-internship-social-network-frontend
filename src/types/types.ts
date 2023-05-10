@@ -1,6 +1,11 @@
-export interface IRegistration {
+export interface ILogin {
   email: string;
-  firstname: string;
-  lastname: string;
   password: string;
 }
+
+export interface IRegistration extends ILogin {
+  firstname: string;
+  lastname: string;
+}
+
+export type tokenType = string;

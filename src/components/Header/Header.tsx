@@ -2,11 +2,14 @@ import React from 'react';
 import classes from './Header.module.scss';
 import vkLogo from '../../assets/vkLogo.png';
 import signOutIcon from '../../assets/signOutIcon.png';
+import signUpIcon from '../../assets/signUpIcon.png';
+import signInIcon from '../../assets/signInIcon.png';
 import { HeaderButton } from '../UI/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { pathname: path } = useLocation();
 
   return (
     <>
@@ -19,9 +22,25 @@ const Header = () => {
               </div>
               <div className={classes.header__title}>ВКОНТАКТЕ</div>
             </div>
-            <HeaderButton size={'large'} image={signOutIcon}>
-              Выйти
-            </HeaderButton>
+            {path === '/login' ? (
+              <Link to={'/registration'}>
+                <HeaderButton size={'large'} image={signUpIcon}>
+                  Зарегистрироваться
+                </HeaderButton>
+              </Link>
+            ) : path === '/registration' ? (
+              <Link to={'/login'}>
+                <HeaderButton size={'large'} image={signInIcon}>
+                  Авторизоваться
+                </HeaderButton>
+              </Link>
+            ) : (
+              <Link to={'/login'}>
+                <HeaderButton size={'large'} image={signOutIcon}>
+                  Выйти
+                </HeaderButton>
+              </Link>
+            )}
           </div>
         </div>
       </div>
