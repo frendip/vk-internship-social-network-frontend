@@ -4,13 +4,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IRegistration } from '../../types/types';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { Navigate } from 'react-router-dom';
-import { fetchRegistration, selectIsAuth } from '../../store/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { fetchRegistration } from '../../store/slices/authSlice';
 
 const Registration = () => {
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector(selectIsAuth);
+  const navigate = useNavigate();
 
   const [messageError, setMessageError] = useState<string>('');
 
@@ -29,15 +28,12 @@ const Registration = () => {
     if (val.type.endsWith('fulfilled')) {
       const token = val.payload;
       window.localStorage.setItem('token', token as string);
+      navigate('/');
     } else {
       setMessageError(val.payload as string);
       reset();
     }
   };
-
-  if (isAuth) {
-    return <Navigate to={'/'} />;
-  }
 
   return (
     <div className={classes.card}>

@@ -7,7 +7,8 @@ import signInIcon from '../../assets/signInIcon.png';
 import { CommonButton } from '../UI/Button/Button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { signOut } from '../../store/slices/authSlice';
+import { deleteToken } from '../../store/slices/authSlice';
+import { deleteUser } from '../../store/slices/userSlice';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ const Header = () => {
   const dispatch = useAppDispatch();
 
   const onClickSignOut = () => {
-    dispatch(signOut());
-    window.localStorage.removeItem('token');
+    dispatch(deleteToken());
+    dispatch(deleteUser());
   };
 
   return (

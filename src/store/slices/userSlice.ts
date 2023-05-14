@@ -40,7 +40,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signOut(state) {
+    deleteUser(state) {
       state.user = null;
       state.status = Status.LOADING;
     },
@@ -70,5 +70,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { signOut } = userSlice.actions;
+export const { deleteUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -59,7 +59,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    signOut(state) {
+    deleteToken(state) {
       state.token = null;
       state.status = Status.LOADING;
     },
@@ -93,7 +93,7 @@ const authSlice = createSlice({
   },
 });
 
-export const selectIsAuth = (state: RootState) => Boolean(state.auth.token);
+export const getToken = (state: RootState) => state.auth.token;
 
-export const { signOut } = authSlice.actions;
+export const { deleteToken } = authSlice.actions;
 export default authSlice.reducer;

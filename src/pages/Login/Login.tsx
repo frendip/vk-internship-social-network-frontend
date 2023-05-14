@@ -4,13 +4,12 @@ import { ILogin } from '../../types/types';
 import classes from '../../styles/formCard.module.scss';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { fetchLogin, selectIsAuth } from '../../store/slices/authSlice';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { Navigate } from 'react-router-dom';
+import { fetchLogin } from '../../store/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector(selectIsAuth);
+  const navigate = useNavigate();
 
   const [messageError, setMessageError] = useState<string>('');
 
@@ -25,19 +24,15 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<ILogin> = async (data) => {
     const { email, password } = data;
+
     const val = await dispatch(fetchLogin({ email, password }));
     if (val.type.endsWith('fulfilled')) {
-      const token = val.payload;
-      window.localStorage.setItem('token', token as string);
+      navigate('/');
     } else {
       setMessageError(val.payload as string);
       reset();
     }
   };
-
-  if (isAuth) {
-    return <Navigate to={'/'} />;
-  }
 
   return (
     <div className={classes.card}>

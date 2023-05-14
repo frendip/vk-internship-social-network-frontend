@@ -1,6 +1,6 @@
 export class AuthService {
   static async getLogin(email: string, password: string) {
-    const url = 'https://vk-internship-social-network-backend.onrender.com/login';
+    const url = 'http://localhost:3003/login';
     return await fetch(url, {
       method: 'POST',
       headers: {
@@ -19,7 +19,7 @@ export class AuthService {
     firstname: string,
     lastname: string,
   ) {
-    const url = 'https://vk-internship-social-network-backend.onrender.com/registration';
+    const url = 'http://localhost:3003/registration';
     return await fetch(url, {
       method: 'POST',
       headers: {

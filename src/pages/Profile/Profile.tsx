@@ -1,27 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Profile.module.scss';
 import defaultAvatar from '../../assets/defaultAvatar.png';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { fetchMe } from '../../store/slices/userSlice';
-import { tokenType } from '../../types/types';
 import PopupWindow from '../../components/UI/PopupWindow/PopupWindow';
 import UpdateImageForm from '../../components/UI/Form/UpdateImageForm';
+import { getToken } from '../../store/slices/authSlice';
 
 const Profile = () => {
-  const token = useRef<tokenType | null>('');
   const dispatch = useAppDispatch();
 
   const { user, status } = useAppSelector((state) => state.user);
 
   const [popupActive, setPopupActive] = useState(false);
 
+  const token = useAppSelector(getToken);
   useEffect(() => {
-    token.current = window.localStorage.getItem('token');
-    console.log(token.current);
-    if (token.current) {
-      dispatch(fetchMe(token.current));
+    if (token) {
+      dispatch(fetchMe(token));
     }
   }, []);
 
