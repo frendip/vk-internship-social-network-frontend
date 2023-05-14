@@ -8,6 +8,7 @@ import { fetchMe } from '../../store/slices/userSlice';
 import PopupWindow from '../../components/UI/PopupWindow/PopupWindow';
 import UpdateImageForm from '../../components/UI/Form/UpdateImageForm';
 import { getToken } from '../../store/slices/authSlice';
+import Loading from '../../components/Loading/Loading';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ const Profile = () => {
   return (
     <div className={classes.profileCard}>
       {status === 'loading' ? (
-        <div>LOADING</div>
+        <Loading />
       ) : (
         <div className={classes.profileCard__top}>
           <div className={classes.profileCard__avatar}>

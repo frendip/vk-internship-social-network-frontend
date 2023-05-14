@@ -1,8 +1,8 @@
 import Profile from '../pages/Profile/Profile';
 import React, { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
-import LoginForm from '../components/UI/Form/LoginForm';
 import RegistrationFrom from '../components/UI/Form/RegistrationFrom';
+import Login from '../components/Login/Login';
 
 interface IRouter {
   path: string;
@@ -16,6 +16,6 @@ export const privateRoutes: IRouter[] = [
 
 export const publicRoutes: IRouter[] = [
   { path: '/', element: <Navigate to={'/login'} /> },
-  { path: '/login', element: <LoginForm /> },
+  { path: '/login', element: <Login /> },
   { path: '/registration', element: <RegistrationFrom /> },
 ];
