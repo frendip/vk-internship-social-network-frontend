@@ -1,6 +1,6 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import classes from '../../../styles/formCard.module.scss';
+import classes from './formCard.module.scss';
 import { CommonButton } from '../Button/Button';
 
 const UpdateImageForm = () => {

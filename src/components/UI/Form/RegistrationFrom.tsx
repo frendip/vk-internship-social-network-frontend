@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import classes from '../../styles/formCard.module.scss';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { IRegistration } from '../../types/types';
-import { CommonButton } from '../../components/UI/Button/Button';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { useNavigate } from 'react-router-dom';
-import { fetchRegistration } from '../../store/slices/authSlice';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { IRegistration } from '../../../types/types';
+import { fetchRegistration } from '../../../store/slices/authSlice';
+import classes from './formCard.module.scss';
+import { CommonButton } from '../Button/Button';
 
-const Registration = () => {
+const RegistrationFrom = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -108,4 +108,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default RegistrationFrom;

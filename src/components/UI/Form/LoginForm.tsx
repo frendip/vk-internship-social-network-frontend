@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { ILogin } from '../../types/types';
-import classes from '../../styles/formCard.module.scss';
-import { CommonButton } from '../../components/UI/Button/Button';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { fetchLogin } from '../../store/slices/authSlice';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { useNavigate } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ILogin } from '../../../types/types';
+import { fetchLogin } from '../../../store/slices/authSlice';
+import classes from './formCard.module.scss';
+import { CommonButton } from '../Button/Button';
 
-const Login = () => {
+const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -77,4 +77,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

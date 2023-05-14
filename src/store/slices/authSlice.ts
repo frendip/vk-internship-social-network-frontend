@@ -40,6 +40,7 @@ export const fetchRegistration = createAsyncThunk<tokenType, IRegistration>(
 );
 
 enum Status {
+  WAITING = 'waiting',
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'error',
@@ -52,7 +53,7 @@ interface authState {
 
 const initialState: authState = {
   token: null,
-  status: Status.LOADING,
+  status: Status.WAITING,
 };
 
 const authSlice = createSlice({
@@ -61,7 +62,7 @@ const authSlice = createSlice({
   reducers: {
     deleteToken(state) {
       state.token = null;
-      state.status = Status.LOADING;
+      state.status = Status.WAITING;
     },
   },
   extraReducers: (builder) => {
