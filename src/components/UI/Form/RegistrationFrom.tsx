@@ -1,44 +1,27 @@
-import React, { useState } from 'react';
-import { useAppDispatch } from '../../../hooks/useAppDispatch';
-import { useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IRegistration } from '../../../types/types';
-import { fetchRegistration } from '../../../store/slices/authSlice';
 import classes from './formCard.module.scss';
 import { CommonButton } from '../Button/Button';
 
-const RegistrationFrom = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+interface RegistrationFromProps {
+  messageError: string;
+  onSubmitHandler: SubmitHandler<IRegistration>;
+}
 
-  const [messageError, setMessageError] = useState<string>('');
-
+const RegistrationFrom: FC<RegistrationFromProps> = ({ messageError, onSubmitHandler }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<IRegistration>({
     mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<IRegistration> = async (data) => {
-    const { email, password, firstname, lastname } = data;
-    const val = await dispatch(fetchRegistration({ email, password, firstname, lastname }));
-    if (val.type.endsWith('fulfilled')) {
-      const token = val.payload;
-      window.localStorage.setItem('token', token as string);
-      navigate('/');
-    } else {
-      setMessageError(val.payload as string);
-      reset();
-    }
-  };
-
   return (
     <div className={classes.card}>
       <h2 className={classes.card__title}>Регистрация</h2>
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
         {messageError && <div className={classes.form__error}>{messageError}</div>}
         <label className={classes.form__label}>
           <div className={classes.form__labelTitle}>Почта</div>

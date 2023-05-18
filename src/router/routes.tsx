@@ -1,8 +1,8 @@
 import Profile from '../pages/Profile/Profile';
 import React, { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
-import Login from '../components/Login/Login';
-import Registration from '../components/Registration/Registration';
+import Login from '../pages/Login/Login';
+import Registration from '../pages/Registration/Registration';
 
 interface IRouter {
   path: string;

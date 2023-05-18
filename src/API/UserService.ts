@@ -2,7 +2,7 @@ import { tokenType } from '../types/types';
 
 export class UserService {
   static async getMe(token: tokenType) {
-    const url = 'https://vk-internship-social-network-backend.onrender.com/getMe';
+    const url = 'http://localhost:3003/getMe';
     return await fetch(url, {
       method: 'GET',
       headers: {
@@ -13,7 +13,7 @@ export class UserService {
   }
 
   static async updateInfo(token: tokenType, obj: { param: string }) {
-    const url = 'https://vk-internship-social-network-backend.onrender.com/updateInfo';
+    const url = 'http://localhost:3003/updateInfo';
     return await fetch(url, {
       method: 'PATCH',
       headers: {

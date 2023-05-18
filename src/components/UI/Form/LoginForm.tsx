@@ -1,43 +1,27 @@
-import React, { useState } from 'react';
-import { useAppDispatch } from '../../../hooks/useAppDispatch';
-import { useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin } from '../../../types/types';
-import { fetchLogin } from '../../../store/slices/authSlice';
 import classes from './formCard.module.scss';
 import { CommonButton } from '../Button/Button';
 
-const LoginForm = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+interface LoginFormProps {
+  messageError: string;
+  onSubmitHandler: SubmitHandler<ILogin>;
+}
 
-  const [messageError, setMessageError] = useState<string>('');
-
+const LoginForm: FC<LoginFormProps> = ({ messageError, onSubmitHandler }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<ILogin>({
     mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<ILogin> = async (data) => {
-    const { email, password } = data;
-
-    const val = await dispatch(fetchLogin({ email, password }));
-    if (val.type.endsWith('fulfilled')) {
-      navigate('/');
-    } else {
-      setMessageError(val.payload as string);
-      reset();
-    }
-  };
-
   return (
     <div className={classes.card}>
       <h2 className={classes.card__title}>Авторизация</h2>
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
         {messageError && <div className={classes.form__error}>{messageError}</div>}
         <label className={classes.form__label}>
           <div className={classes.form__labelTitle}>Почта</div>
