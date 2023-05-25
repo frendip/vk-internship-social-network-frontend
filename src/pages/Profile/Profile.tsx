@@ -1,24 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classes from './Profile.module.scss';
 import defaultAvatar from '../../assets/defaultAvatar.png';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { deleteUser, fetchMe } from '../../store/slices/userSlice';
+import { deleteUser, fetchMe, updateMe } from '../../store/slices/userSlice';
 import PopupWindow from '../../components/UI/PopupWindow/PopupWindow';
 import UpdateImageForm from '../../components/UI/Form/UpdateImageForm';
 import { deleteToken, getToken } from '../../store/slices/authSlice';
 import Loading from '../../components/Loading/Loading';
+import { SubmitHandler } from 'react-hook-form';
+import { IUser } from '../../types/types';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
-
   const { user, status } = useAppSelector((state) => state.user);
-
-  const [avatarPopupActive, setAvatarPopupActive] = useState(false);
-  const avatarPopupHandler = () => {
-    setAvatarPopupActive((prevState) => !prevState);
-  };
+  const userRef = useRef<IUser | null>(null);
 
   const token = useAppSelector(getToken);
   const fetchMeHandler = useCallback(async () => {
@@ -27,12 +24,27 @@ const Profile = () => {
       if (val.type.endsWith('rejected')) {
         dispatch(deleteToken());
         dispatch(deleteUser());
+      } else {
+        userRef.current = val.payload as IUser;
       }
     }
   }, [dispatch, token]);
   useEffect(() => {
     fetchMeHandler().then();
   }, [fetchMeHandler, token]);
+
+  const [avatarPopupActive, setAvatarPopupActive] = useState(false);
+  const avatarPopupHandler = () => {
+    setAvatarPopupActive((prevState) => !prevState);
+  };
+
+  const onSubmitAvatarHandler: SubmitHandler<{ url: string }> = async (data) => {
+    userRef.current && (userRef.current = { ...userRef.current, avatarUrl: data.url });
+    if (token && userRef.current) {
+      dispatch(updateMe({ token, user: userRef.current }));
+    }
+    avatarPopupHandler();
+  };
 
   return (
     <div className={classes.profileCard}>
@@ -46,7 +58,7 @@ const Profile = () => {
             </div>
             <div className={classes.profileCard__changeAvatar}>
               <PopupWindow popupActive={avatarPopupActive} setPopupActive={setAvatarPopupActive}>
-                <UpdateImageForm closePopup={avatarPopupHandler} />
+                <UpdateImageForm onSubmitHandler={onSubmitAvatarHandler} />
               </PopupWindow>
               <CommonButton onClick={avatarPopupHandler}>Изменить фото</CommonButton>
             </div>
