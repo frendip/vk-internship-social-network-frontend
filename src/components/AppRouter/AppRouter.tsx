@@ -5,6 +5,7 @@ import ProfileLayout from '../ProfileLayout/ProfileLayout';
 import { privateRoutes, publicRoutes } from '../../router/routes';
 import Layout from '../Layout/Layout';
 import { getToken } from '../../store/slices/authSlice';
+import Login from '../../pages/Login/Login';
 
 const AppRouter = () => {
   const isAuth = useAppSelector(getToken);
@@ -15,7 +16,7 @@ const AppRouter = () => {
           {privateRoutes.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
-          <Route path="*" element={<div>123</div>} />
+          <Route path="*" element={<Login />} />
         </Route>
       </Route>
     </Routes>

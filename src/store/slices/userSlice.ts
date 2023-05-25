@@ -20,6 +20,25 @@ export const fetchMe = createAsyncThunk<IUser, tokenType>(
   },
 );
 
+export const updateMe = createAsyncThunk<IUser, { token: tokenType; user: IUser }>(
+  'user/updateMe',
+  async ({ token, user }, { rejectWithValue }) => {
+    try {
+      const response = await UserService.updateMe(token, user);
+      console.log(response);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      return data.user;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
 enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
@@ -64,6 +83,26 @@ const userSlice = createSlice({
         state.user = null;
       })
       .addCase(fetchMe.rejected, (state) => {
+        state.status = Status.ERROR;
+        state.user = null;
+      })
+      .addCase(updateMe.fulfilled, (state, action) => {
+        state.user = {
+          email: action.payload.email,
+          firstname: action.payload.firstname,
+          lastname: action.payload.lastname,
+          avatarUrl: action.payload?.avatarUrl,
+          birthday: action.payload?.birthday,
+          city: action.payload?.city,
+          university: action.payload?.university,
+        };
+        state.status = Status.SUCCESS;
+      })
+      .addCase(updateMe.pending, (state) => {
+        state.status = Status.LOADING;
+        state.user = null;
+      })
+      .addCase(updateMe.rejected, (state) => {
         state.status = Status.ERROR;
         state.user = null;
       });

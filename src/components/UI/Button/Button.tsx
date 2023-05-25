@@ -20,10 +20,10 @@ interface HeaderButtonProps extends BaseButtonProps {
 }
 
 const headerBtnSize = {
-  small: classes.headerBtn__small,
-  medium: classes.headerBtn__medium,
-  large: classes.headerBtn__large,
-  stretched: classes.headerBtn__stretched,
+  small: classes.commonBtn__small,
+  medium: classes.commonBtn__medium,
+  large: classes.commonBtn__large,
+  stretched: classes.commonBtn__stretched,
 };
 
 export const CommonButton: FC<HeaderButtonProps> = ({
@@ -37,17 +37,17 @@ export const CommonButton: FC<HeaderButtonProps> = ({
   return (
     <BaseButton
       className={clsx(
-        classes.headerBtn,
+        classes.commonBtn,
         headerBtnSize[size],
-        stretched && classes.headerBtn__stretched,
-        textPositionLeft && classes.headerBtn__textPositionLeft,
+        stretched && classes.commonBtn__stretched,
+        textPositionLeft && classes.commonBtn__textPositionLeft,
       )}
       {...props}>
       {!image ? (
         children
       ) : (
-        <div className={classes.headerBtn__row}>
-          <div className={classes.headerBtn__img}>
+        <div className={classes.commonBtn__row}>
+          <div className={classes.commonBtn__img}>
             <img src={image} alt="btnLogo" />
           </div>
           {children}

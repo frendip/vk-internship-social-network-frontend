@@ -1,4 +1,4 @@
-import { tokenType } from '../types/types';
+import { IUser, tokenType } from '../types/types';
 
 export class UserService {
   static async getMe(token: tokenType) {
@@ -12,8 +12,8 @@ export class UserService {
     });
   }
 
-  static async updateInfo(token: tokenType, obj: { param: string }) {
-    const url = 'http://localhost:3003/updateInfo';
+  static async updateMe(token: tokenType, user: IUser) {
+    const url = 'http://localhost:3003/updateMe';
     return await fetch(url, {
       method: 'PATCH',
       headers: {
@@ -21,7 +21,7 @@ export class UserService {
         authorization: token || '',
       },
       body: JSON.stringify({
-        ...obj,
+        ...user,
       }),
     });
   }

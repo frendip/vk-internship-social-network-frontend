@@ -9,41 +9,41 @@
   transition-duration: 0.2s;
 }
 
-.headerBtn {
+.commonBtn {
   color: white;
 }
-.headerBtn__small {
+.commonBtn__small {
   padding: 5px;
   font-size: 12px;
   border-radius: 5px;
 }
-.headerBtn__medium {
+.commonBtn__medium {
   width: 100%;
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 10px;
 }
-.headerBtn__large {
+.commonBtn__large {
   padding: 15px 30px;
   font-size: 18px;
   border-radius: 15px;
 }
-.headerBtn__stretched {
+.commonBtn__stretched {
   width: 100%;
 }
-.headerBtn__textPositionLeft {
+.commonBtn__textPositionLeft {
   text-align: left;
   padding-left: 7px;
 }
-.headerBtn__row {
+.commonBtn__row {
   display: flex;
   align-items: center;
   gap: 0 5px;
 }
-.headerBtn__img {
+.commonBtn__img {
   position: relative;
 }
-.headerBtn__img img {
+.commonBtn__img img {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -51,19 +51,19 @@
   left: 0;
   object-fit: cover;
 }
-.headerBtn__small .headerBtn__img {
+.commonBtn__small .commonBtn__img {
   width: 12px;
   height: 12px;
 }
-.headerBtn__medium .headerBtn__img {
+.commonBtn__medium .commonBtn__img {
   width: 16px;
   height: 16px;
 }
-.headerBtn__large .headerBtn__img {
+.commonBtn__large .commonBtn__img {
   width: 18px;
   height: 18px;
 }
-.headerBtn:hover {
+.commonBtn:hover {
   background: #3b3b3b;
 }
 

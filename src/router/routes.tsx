@@ -12,10 +12,12 @@ interface IRouter {
 export const privateRoutes: IRouter[] = [
   { path: '/', element: <Navigate to={'/me'} /> },
   { path: '/:id', element: <Profile /> },
+  { path: '*', element: <Navigate to={'/me'} /> },
 ];
 
 export const publicRoutes: IRouter[] = [
   { path: '/', element: <Navigate to={'/login'} /> },
   { path: '/login', element: <Login /> },
   { path: '/registration', element: <Registration /> },
+  { path: '*', element: <Login /> },
 ];

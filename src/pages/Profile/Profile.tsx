@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classes from './Profile.module.scss';
 import defaultAvatar from '../../assets/defaultAvatar.png';
 import { CommonButton } from '../../components/UI/Button/Button';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { fetchMe } from '../../store/slices/userSlice';
+import { deleteUser, fetchMe } from '../../store/slices/userSlice';
 import PopupWindow from '../../components/UI/PopupWindow/PopupWindow';
 import UpdateImageForm from '../../components/UI/Form/UpdateImageForm';
-import { getToken } from '../../store/slices/authSlice';
+import { deleteToken, getToken } from '../../store/slices/authSlice';
 import Loading from '../../components/Loading/Loading';
 
 const Profile = () => {
@@ -15,14 +15,24 @@ const Profile = () => {
 
   const { user, status } = useAppSelector((state) => state.user);
 
-  const [popupActive, setPopupActive] = useState(false);
+  const [avatarPopupActive, setAvatarPopupActive] = useState(false);
+  const avatarPopupHandler = () => {
+    setAvatarPopupActive((prevState) => !prevState);
+  };
 
   const token = useAppSelector(getToken);
-  useEffect(() => {
+  const fetchMeHandler = useCallback(async () => {
     if (token) {
-      dispatch(fetchMe(token));
+      const val = await dispatch(fetchMe(token));
+      if (val.type.endsWith('rejected')) {
+        dispatch(deleteToken());
+        dispatch(deleteUser());
+      }
     }
-  }, []);
+  }, [dispatch, token]);
+  useEffect(() => {
+    fetchMeHandler().then();
+  }, [fetchMeHandler, token]);
 
   return (
     <div className={classes.profileCard}>
@@ -35,10 +45,10 @@ const Profile = () => {
               <img src={user?.avatarUrl || defaultAvatar} alt="avatar" />
             </div>
             <div className={classes.profileCard__changeAvatar}>
-              <PopupWindow popupActive={popupActive} setPopupActive={setPopupActive}>
-                <UpdateImageForm />
+              <PopupWindow popupActive={avatarPopupActive} setPopupActive={setAvatarPopupActive}>
+                <UpdateImageForm closePopup={avatarPopupHandler} />
               </PopupWindow>
-              <CommonButton onClick={() => setPopupActive(true)}>Изменить фото</CommonButton>
+              <CommonButton onClick={avatarPopupHandler}>Изменить фото</CommonButton>
             </div>
           </div>
           <div className={classes.profileCard__information}>
