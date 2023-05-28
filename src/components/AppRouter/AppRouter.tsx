@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import ProfileLayout from '../ProfileLayout/ProfileLayout';
+import SidebarLayout from '../SidebarLayout/SidebarLayout';
 import { privateRoutes, publicRoutes } from '../../router/routes';
 import Layout from '../Layout/Layout';
 import { getToken } from '../../store/slices/authSlice';
@@ -12,7 +12,7 @@ const AppRouter = () => {
   return isAuth ? (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<ProfileLayout />}>
+        <Route path="/" element={<SidebarLayout />}>
           {privateRoutes.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}

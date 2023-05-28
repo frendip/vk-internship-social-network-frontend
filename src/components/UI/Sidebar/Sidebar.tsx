@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './NavBar.module.scss';
+import classes from './Sidebar.module.scss';
 import { Link } from 'react-router-dom';
 import { CommonButton } from '../Button/Button';
 import friendsIcon from '../../../assets/friendsIcon.png';
@@ -7,25 +7,25 @@ import mesIcon from '../../../assets/mesIcon.png';
 import newsIcon from '../../../assets/newsIcon.png';
 import pageIcon from '../../../assets/pageIcon.png';
 
-const NavBar = () => {
+const Sidebar = () => {
   return (
-    <div className={classes.navBar}>
-      <ul className={classes.navBar__items}>
-        <li className={classes.navBar__item}>
+    <div className={classes.sidebar}>
+      <ul className={classes.sidebar__items}>
+        <li className={classes.sidebar__item}>
           <Link to="/me">
             <CommonButton size={'large'} image={pageIcon} stretched={true} textPositionLeft={true}>
               Моя страница
             </CommonButton>
           </Link>
         </li>
-        <li className={classes.navBar__item}>
+        <li className={classes.sidebar__item}>
           <Link to="/mes">
             <CommonButton size={'large'} image={mesIcon} stretched={true} textPositionLeft={true}>
               Мои сообщения
             </CommonButton>
           </Link>
         </li>
-        <li className={classes.navBar__item}>
+        <li className={classes.sidebar__item}>
           <Link to="/friends">
             <CommonButton
               size={'large'}
@@ -36,7 +36,7 @@ const NavBar = () => {
             </CommonButton>
           </Link>
         </li>
-        <li className={classes.navBar__item}>
+        <li className={classes.sidebar__item}>
           <Link to="/news">
             <CommonButton size={'large'} image={newsIcon} stretched={true} textPositionLeft={true}>
               Мои новости
@@ -48,4 +48,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Sidebar;

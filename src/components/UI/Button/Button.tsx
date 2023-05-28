@@ -56,3 +56,11 @@ export const CommonButton: FC<HeaderButtonProps> = ({
     </BaseButton>
   );
 };
+
+export const AvatarButton: FC<BaseButtonProps> = ({ children, ...props }) => {
+  return (
+    <BaseButton className={classes.avatarBtn} {...props}>
+      {children}
+    </BaseButton>
+  );
+};
