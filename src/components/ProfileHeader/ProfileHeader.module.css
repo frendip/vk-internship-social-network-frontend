@@ -1,0 +1,93 @@
+.profileHeader {
+  position: relative;
+  width: 100%;
+  height: 120%;
+  overflow: hidden;
+}
+.profileHeader__bg {
+  position: relative;
+  height: 70%;
+}
+.profileHeader__bg img {
+  border-radius: 15px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+.profileHeader__bgChange {
+  position: absolute;
+  right: 2%;
+  top: 7%;
+}
+.profileHeader__card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: #222222;
+  border-radius: 15px;
+  border: 1px solid #292929;
+  padding: 10px 20px;
+  display: flex;
+  gap: 0 5%;
+}
+.profileHeader__avatar {
+  border: 3px solid #222222;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  top: -100%;
+  width: 160px;
+  height: 160px;
+}
+.profileHeader__avatar img {
+  border-radius: 50%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+.profileHeader__information {
+  display: flex;
+  flex-direction: column;
+  gap: 30px 0;
+}
+.profileHeader__fullname {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+}
+.profileHeader__description {
+  display: flex;
+  gap: 0 10px;
+}
+.profileHeader__descriptionItem {
+  display: flex;
+  align-items: center;
+  gap: 0 3px;
+}
+.profileHeader__descriptionItemIcon {
+  position: relative;
+  width: 15px;
+  height: 15px;
+}
+.profileHeader__descriptionItemIcon img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+.profileHeader__descriptionItem span {
+  font-size: 12px;
+  color: #929292;
+}
+
+/*# sourceMappingURL=ProfileHeader.module.css.map */
