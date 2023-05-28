@@ -4,11 +4,11 @@
   height: 120%;
   overflow: hidden;
 }
-.profileHeader__bg {
+.profileHeader__background {
   position: relative;
   height: 70%;
 }
-.profileHeader__bg img {
+.profileHeader__background img {
   border-radius: 15px;
   position: absolute;
   width: 100%;
@@ -17,7 +17,7 @@
   left: 0;
   object-fit: cover;
 }
-.profileHeader__bgChange {
+.profileHeader__backgroundChange {
   position: absolute;
   right: 2%;
   top: 7%;

@@ -12,9 +12,11 @@ export interface IRegistration {
 }
 
 export interface IUser {
+  login: string;
   email: string;
   firstname: string;
   lastname: string;
+  backgroundUrl?: string;
   avatarUrl?: string;
   birthday?: string;
   city?: string;

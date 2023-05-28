@@ -1,6 +1,7 @@
 import { IUser, tokenType } from '../../types/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UserService } from '../../API/UserService';
+import { isError, isFulfilled, isPending } from './matcherFunctions';
 
 export const fetchMe = createAsyncThunk<IUser, tokenType>(
   'user/fetchMe',
@@ -25,7 +26,6 @@ export const updateMe = createAsyncThunk<IUser, { token: tokenType; user: IUser 
   async ({ token, user }, { rejectWithValue }) => {
     try {
       const response = await UserService.updateMe(token, user);
-      console.log(response);
       const data = await response.json();
 
       if (!response.ok) {
@@ -66,11 +66,17 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchMe.fulfilled, (state, action) => {
+      .addMatcher(isPending, (state) => {
+        state.status = Status.LOADING;
+        state.user = null;
+      })
+      .addMatcher(isFulfilled, (state, action) => {
         state.user = {
+          login: action.payload.login,
           email: action.payload.email,
           firstname: action.payload.firstname,
           lastname: action.payload.lastname,
+          backgroundUrl: action.payload.backgroundUrl,
           avatarUrl: action.payload?.avatarUrl,
           birthday: action.payload?.birthday,
           city: action.payload?.city,
@@ -78,31 +84,7 @@ const userSlice = createSlice({
         };
         state.status = Status.SUCCESS;
       })
-      .addCase(fetchMe.pending, (state) => {
-        state.status = Status.LOADING;
-        state.user = null;
-      })
-      .addCase(fetchMe.rejected, (state) => {
-        state.status = Status.ERROR;
-        state.user = null;
-      })
-      .addCase(updateMe.fulfilled, (state, action) => {
-        state.user = {
-          email: action.payload.email,
-          firstname: action.payload.firstname,
-          lastname: action.payload.lastname,
-          avatarUrl: action.payload?.avatarUrl,
-          birthday: action.payload?.birthday,
-          city: action.payload?.city,
-          university: action.payload?.university,
-        };
-        state.status = Status.SUCCESS;
-      })
-      .addCase(updateMe.pending, (state) => {
-        state.status = Status.LOADING;
-        state.user = null;
-      })
-      .addCase(updateMe.rejected, (state) => {
+      .addMatcher(isError, (state) => {
         state.status = Status.ERROR;
         state.user = null;
       });

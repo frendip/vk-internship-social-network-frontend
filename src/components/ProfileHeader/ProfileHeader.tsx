@@ -15,6 +15,7 @@ import penIcon from '../../assets/penIcon.png';
 import birthdayIcon from '../../assets/birthdayIcon.svg';
 import markerIcon from '../../assets/markerIcon.svg';
 import universityIcon from '../../assets/universityIcon.svg';
+import UpdateBackgroundForm from '../UI/Form/UpdateBackgroundForm';
 
 const ProfileHeader = () => {
   const dispatch = useAppDispatch();
@@ -23,9 +24,14 @@ const ProfileHeader = () => {
 
   const token = useAppSelector(getToken);
 
-  const [bgHover, setBgHover] = useState(false);
-  const bgHoverHandler = () => {
-    setBgHover((prevState) => !prevState);
+  const [backgroundHover, setBackgroundHover] = useState(false);
+  const backgroundHoverHandler = () => {
+    setBackgroundHover((prevState) => !prevState);
+  };
+
+  const [backgroundPopupActive, setBackgroundPopupActive] = useState(false);
+  const backgroundPopupHandler = () => {
+    setBackgroundPopupActive((prevState) => !prevState);
   };
 
   const [avatarPopupActive, setAvatarPopupActive] = useState(false);
@@ -38,6 +44,13 @@ const ProfileHeader = () => {
     setAvatarHover((prevState) => !prevState);
   };
 
+  const onSubmitBackgroundHandler: SubmitHandler<{ url: string }> = async (data) => {
+    userRef.current && (userRef.current = { ...userRef.current, backgroundUrl: data.url });
+    if (token && userRef.current) {
+      dispatch(updateMe({ token, user: userRef.current }));
+    }
+    backgroundPopupHandler();
+  };
   const onSubmitAvatarHandler: SubmitHandler<{ url: string }> = async (data) => {
     userRef.current && (userRef.current = { ...userRef.current, avatarUrl: data.url });
     if (token && userRef.current) {
@@ -49,19 +62,19 @@ const ProfileHeader = () => {
   return (
     <div className={classes.profileHeader}>
       <div
-        className={classes.profileHeader__bg}
-        onMouseEnter={bgHoverHandler}
-        onMouseLeave={bgHoverHandler}>
-        <img src={defaultBg} alt="bg" />
-        {bgHover && (
-          <div className={classes.profileHeader__bgChange}>
-            <CommonButton image={penIcon} onClick={avatarPopupHandler}>
+        className={classes.profileHeader__background}
+        onMouseEnter={backgroundHoverHandler}
+        onMouseLeave={backgroundHoverHandler}>
+        <img src={user?.backgroundUrl || defaultBg} alt="bg" />
+        {backgroundHover && (
+          <div className={classes.profileHeader__backgroundChange}>
+            <CommonButton image={penIcon} onClick={backgroundPopupHandler}>
               Изменить обложку
             </CommonButton>
           </div>
         )}
-        <PopupWindow popupActive={avatarPopupActive} setPopupActive={setAvatarPopupActive}>
-          <UpdateImageForm onSubmitHandler={onSubmitAvatarHandler} />
+        <PopupWindow popupActive={backgroundPopupActive} setPopupActive={setBackgroundPopupActive}>
+          <UpdateBackgroundForm onSubmitHandler={onSubmitBackgroundHandler} />
         </PopupWindow>
       </div>
       <div className={classes.profileHeader__card}>
