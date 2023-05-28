@@ -15,8 +15,8 @@ const Registration = () => {
   const [messageError, setMessageError] = useState<string>('');
 
   const onSubmitHandler: SubmitHandler<IRegistration> = async (data) => {
-    const { email, password, firstname, lastname } = data;
-    const val = await dispatch(fetchRegistration({ email, password, firstname, lastname }));
+    const { login, email, password, firstname, lastname } = data;
+    const val = await dispatch(fetchRegistration({ login, email, password, firstname, lastname }));
     if (val.type.endsWith('fulfilled')) {
       const token = val.payload;
       window.localStorage.setItem('token', token as string);

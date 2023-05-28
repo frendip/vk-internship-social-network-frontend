@@ -24,19 +24,18 @@ const LoginForm: FC<LoginFormProps> = ({ messageError, onSubmitHandler }) => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
         {messageError && <div className={classes.form__error}>{messageError}</div>}
         <label className={classes.form__label}>
-          <div className={classes.form__labelTitle}>Почта</div>
+          <div className={classes.form__labelTitle}>Логин или пароль</div>
           <input
             className={classes.form__input}
-            {...register('email', {
-              required: 'Введите почту.',
-              pattern: {
-                value:
-                  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-                message: 'Введите корректную почту.',
+            {...register('login', {
+              required: 'Введите логин или почту.',
+              minLength: {
+                value: 3,
+                message: 'Логин или почта должны содержать минимум 3 символа',
               },
             })}
           />
-          {errors?.email && <div className={classes.form__error}>{errors.email.message}</div>}
+          {errors?.login && <div className={classes.form__error}>{errors.login.message}</div>}
         </label>
         <label className={classes.form__label}>
           <div className={classes.form__labelTitle}>Пароль</div>

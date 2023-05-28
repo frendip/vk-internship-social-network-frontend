@@ -24,6 +24,20 @@ const RegistrationFrom: FC<RegistrationFromProps> = ({ messageError, onSubmitHan
       <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
         {messageError && <div className={classes.form__error}>{messageError}</div>}
         <label className={classes.form__label}>
+          <div className={classes.form__labelTitle}>Логин</div>
+          <input
+            className={classes.form__input}
+            {...register('login', {
+              required: 'Введите логин.',
+              minLength: {
+                value: 3,
+                message: 'Логин должен содержать минимум 3 символа.',
+              },
+            })}
+          />
+          {errors?.login && <div className={classes.form__error}>{errors.login.message}</div>}
+        </label>
+        <label className={classes.form__label}>
           <div className={classes.form__labelTitle}>Почта</div>
           <input
             className={classes.form__input}

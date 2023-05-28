@@ -1,5 +1,5 @@
 export class AuthService {
-  static async getLogin(email: string, password: string) {
+  static async getLogin(login: string, password: string) {
     const url = 'http://localhost:3003/login';
     return await fetch(url, {
       method: 'POST',
@@ -7,13 +7,14 @@ export class AuthService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email,
+        login,
         password,
       }),
     });
   }
 
   static async getRegistration(
+    login: string,
     email: string,
     password: string,
     firstname: string,
@@ -26,6 +27,7 @@ export class AuthService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        login,
         email,
         firstname,
         lastname,
